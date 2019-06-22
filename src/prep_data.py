@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import chi2
 
-data = pd.read_csv("caso-dengue2018.csv", sep=';') 
+data = pd.read_csv("data\caso-dengue2018.csv", sep=';') 
 
 data.dropna(subset=["tp_classificacao_final"], inplace=True)
 
