@@ -1,7 +1,7 @@
 from sklearn.neural_network import MLPClassifier
 from MLModel import MLModel
 
-class MLPClassiferModel(MLModel):
+class MLPClassifierModel(MLModel):
     def __init__(self, model):
         self.model = model
 
