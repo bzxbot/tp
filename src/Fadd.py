@@ -1,6 +1,5 @@
 import click
 import pickle
-from sklearn.metrics import accuracy_score, f1_score, recall_score
 from sklearn.model_selection import train_test_split
 from CsvDataReader import CsvDataReader
 from DataScrubber import DataScrubber
@@ -9,6 +8,7 @@ from SVMClassifierModelFactory import SVMClassifierModelFactory
 from RFClassifierModelFactory import RFClassifierModelFactory
 from ModelSerializer import ModelSerializer
 from FeatureScore import FeatureScore
+from ResultsMetrics import ResultsMetrics
 
 @click.command()
 @click.option("--file", help="Path of the file to used in the training of the model")
@@ -47,15 +47,9 @@ def fadd(file, save, load, feature_score):
     mlp_y_pred = mlp_model.predict(X_test)
     svm_y_pred = svm_model.predict(X_test)
     rf_y_pred = rf_model.predict(X_test)
-    print("MLP Accuracy:", accuracy_score(y_test, mlp_y_pred))
-    print("SVM Accuracy: ", accuracy_score(y_test, svm_y_pred))
-    print("RF Accuracy", accuracy_score(y_test, rf_y_pred))
-    print("MLP F1:", f1_score(y_test, mlp_y_pred, average='weighted'))
-    print("SVM F1: ", f1_score(y_test, svm_y_pred, average='weighted'))
-    print("RF F1", f1_score(y_test, rf_y_pred, average='weighted'))
-    print("MLP Recall:", recall_score(y_test, mlp_y_pred, average='weighted'))
-    print("SVM Recall: ", recall_score(y_test, svm_y_pred, average='weighted'))
-    print("RF Recall", recall_score(y_test, rf_y_pred, average='weighted'))
+    result_metrics = ResultsMetrics()
+    result_metrics.print_result_metrics(y_test, mlp_y_pred, svm_y_pred, rf_y_pred)
 
 if __name__ == '__main__':
+    # pylint: disable=no-value-for-parameter
     fadd()
