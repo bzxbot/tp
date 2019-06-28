@@ -22,4 +22,5 @@ class DataScrubber:
         print(X.info())
         y = X["diagnostico"] 
         X.drop(columns=["diagnostico", "tp_classificacao_final"], inplace=True)
+        print(X.head())
         return X, y

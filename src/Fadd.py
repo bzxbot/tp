@@ -15,7 +15,7 @@ from FeatureScore import FeatureScore
 @click.option("-s/-ns", "--save/--no-save", help="Serialize the model")
 @click.option("-l/-nl", "--load/--no-load", help="Loads an existing model")
 @click.option("--feature-score", "--load/--no-load", help="Loads an existing model")
-def fad(file, save, load, feature_score):
+def fadd(file, save, load, feature_score):
     csv_data_reader = CsvDataReader()
     file_data = csv_data_reader.read_data(file, ";")
     train, test = train_test_split(file_data, test_size=0.3)
@@ -31,8 +31,8 @@ def fad(file, save, load, feature_score):
     model_serializer = ModelSerializer()
     if load:
         mlp_model = model_serializer.load_model(mlp_model)
-        rf_model = rf_model_factory.create_model()
-        svm_model = svm_model_factory.create_model()
+        rf_model = model_serializer.load_model(rf_model)
+        svm_model = model_serializer.load_model(svm_model)
     else:
         mlp_model.train(X_train, y_train)
         rf_model.train(X_train, y_train)
@@ -58,4 +58,4 @@ def fad(file, save, load, feature_score):
     print("RF Recall", recall_score(y_test, rf_y_pred, average='weighted'))
 
 if __name__ == '__main__':
-    fad()
+    fadd()
