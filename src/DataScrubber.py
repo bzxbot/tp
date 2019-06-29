@@ -17,10 +17,7 @@ class DataScrubber:
         X["tp_result_imunohistoquimica"].fillna(4, inplace=True)
         X["st_ocorreu_hospitalizacao"].fillna(9, inplace=True)
         X["diagnostico"] = X.apply(lambda row: 0 if row.tp_classificacao_final == 5 else 1, axis=1)
-        print(X.info()) 
         X.dropna(inplace=True)
-        print(X.info())
         y = X["diagnostico"] 
         X.drop(columns=["diagnostico", "tp_classificacao_final"], inplace=True)
-        print(X.head())
         return X, y
